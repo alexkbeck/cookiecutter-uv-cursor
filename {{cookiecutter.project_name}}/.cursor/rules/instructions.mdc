@@ -1,0 +1,163 @@
+---
+description: Developer instructions for {{cookiecutter.project_name}}
+globs:
+alwaysApply: true
+---
+
+# {{cookiecutter.project_name}} Development Guide
+
+## 
+
+- Read the project readme: @README.md
+
+
+## Quick Start
+
+```bash
+# Setup environment and install dependencies
+make install
+
+# Run all quality checks
+make check
+
+# Run tests
+make test
+```
+
+## Essential Files
+
+- `@pyproject.toml` - Project configuration, dependencies, and tool settings
+- `@Makefile` - Common development commands
+- `@README.md` - Project documentation and setup instructions
+{% if cookiecutter.layout == "src" -%}
+- `src/{{cookiecutter.project_slug}}/` - Main package source code
+{%- else -%}
+- `{{cookiecutter.project_slug}}/` - Main package source code
+{%- endif %}
+- `tests/` - Test files
+
+## Development Workflow
+
+### Environment Management
+- **UV**: Dependency management and virtual environment. Add packages with: `uv add <package-name>`
+- **Pre-commit**: Automatic code quality checks on commit: `./.pre-commit-config.yaml`
+- **Make**: Common development commands (run `make help` for all options)
+- **Environment Management:** Read the project file: @pyproject.toml
+
+### Code Quality
+- **Ruff**: Code linting and formatting
+- **MyPy**: Static type checking
+{% if cookiecutter.deptry == 'y' -%}
+- **Deptry**: Dependency usage analysis
+{%- endif %}
+- **Pre-commit hooks**: Run automatically before commits
+
+### Testing
+- **Pytest**: Test runner with doctest support
+{% if cookiecutter.codecov == 'y' -%}
+- **Coverage**: Test coverage reporting (integrated with codecov)
+{%- endif %}
+- **Tox**: Multi-version testing (Python 3.9-3.13)
+
+### Key Commands
+```bash
+# Quality checks
+make check              # Run all quality checks
+uv run pre-commit run -a  # Run pre-commit hooks manually
+uv run mypy            # Type checking
+{%- if cookiecutter.deptry == 'y' %}
+uv run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}          # Check dependencies
+{%- endif %}
+
+# Testing
+make test              # Run tests
+uv run pytest -v      # Verbose test output
+uv run tox            # Test across Python versions
+
+# Building
+make build            # Build wheel package
+{%- if cookiecutter.publish_to_pypi == 'y' %}
+make publish          # Publish to PyPI
+{%- endif %}
+{%- if cookiecutter.mkdocs == 'y' %}
+
+# Documentation
+make docs             # Serve documentation locally
+make docs-test        # Test documentation build
+{%- endif %}
+```
+
+## Project Structure
+
+Run this command in the terminal to view the project structure:
+```bash
+tree -F
+```
+
+Directories of note:
+
+{% if cookiecutter.layout == "src" -%}
+```
+src/{{cookiecutter.project_slug}}/    # Main package (src layout)
+{%- else -%}
+```
+{{cookiecutter.project_slug}}/        # Main package (flat layout)
+{%- endif %}
+tests/                 # Test files
+{% if cookiecutter.mkdocs == 'y' -%}
+docs/                  # MkDocs documentation
+{%- endif %}
+{% if cookiecutter.dockerfile == 'y' -%}
+Dockerfile             # Docker configuration
+{%- endif %}
+{% if cookiecutter.devcontainer == 'y' -%}
+.devcontainer/         # VS Code devcontainer
+{%- endif %}
+{% if cookiecutter.include_github_actions == 'y' -%}
+.github/workflows/     # GitHub Actions CI/CD
+{%- endif %}
+```
+
+## Configuration Notes
+
+- **Python versions**: Supports 3.9-3.13
+- **Dependencies**: Defined in `pyproject.toml` under `[dependency-groups]`
+- **Linting**: Ruff configuration in `pyproject.toml`
+- **Type checking**: MyPy configuration in `pyproject.toml`
+{% if cookiecutter.codecov == 'y' -%}
+- **Coverage**: Configuration in `pyproject.toml` under `[tool.coverage]`
+{%- endif %}
+
+## Adding Dependencies
+
+```bash
+# Add runtime dependency
+uv add package-name
+
+# Add development dependency  
+uv add --group dev package-name
+
+# Sync environment after changes
+uv sync
+```
+
+## Common Issues
+
+- **Pre-commit failures**: Run `uv run pre-commit run -a` to fix formatting
+- **Type errors**: Check with `uv run mypy` and add type annotations
+- **Test failures**: Use `uv run pytest -v` for detailed output
+- **Lock file issues**: Run `uv lock --locked` to verify consistency
+
+## Release Process
+{% if cookiecutter.publish_to_pypi == 'y' -%}
+1. Update version in `pyproject.toml`
+2. Run `make build-and-publish` (requires PyPI token)
+3. Create GitHub release with tag matching version
+{% if cookiecutter.include_github_actions == 'y' -%}
+4. GitHub Actions will automatically build and publish
+{%- endif %}
+{%- else -%}
+1. Update version in `pyproject.toml`
+2. Run `make build` to create wheel
+3. Create GitHub release with tag matching version
+{%- endif %}
