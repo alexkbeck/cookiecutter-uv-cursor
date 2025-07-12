@@ -60,6 +60,26 @@ To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github
 For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
 To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
 
+{% if cookiecutter.typer_cli == 'y' -%}
+## CLI Usage
+
+This project includes a command-line interface built with Typer. After installation, you can use the CLI:
+
+```bash
+# Run the hello command
+{{cookiecutter.project_slug}} hello
+
+# Run with a custom name
+{{cookiecutter.project_slug}} hello --name Alice
+```
+
+For more information about available commands, run:
+
+```bash
+{{cookiecutter.project_slug}} --help
+```
+{%- endif %}
+
 ## Releasing a new version
 
 {% if cookiecutter.publish_to_pypi == "y" -%}

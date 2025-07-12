@@ -26,6 +26,13 @@ test: ## Test the code with pytest
 	@uv run python -m pytest --doctest-modules
 {%- endif%}
 
+{% if cookiecutter.typer_cli == 'y' -%}
+.PHONY: run-cli
+run-cli: ## Run the CLI application
+	@echo "🚀 Running CLI application"
+	@uv run {{cookiecutter.project_slug}}
+{%- endif %}
+
 .PHONY: build
 build: clean-build ## Build wheel file
 	@echo "🚀 Creating wheel file"

@@ -18,4 +18,8 @@ COPY . /app
 # Sync the project
 RUN uv sync --frozen
 
+{% if cookiecutter.typer_cli == 'y' -%}
+CMD [ "uv", "run", "{{cookiecutter.project_slug}}" ]
+{%- else -%}
 CMD [ "python", "{{cookiecutter.project_slug}}/foo.py" ]
+{%- endif %}

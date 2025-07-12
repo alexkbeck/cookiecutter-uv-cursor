@@ -13,7 +13,21 @@
    height="400"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"><defs
-   id="defs111" />
+   id="defs111">
+   <!-- Cursor logo gradients -->
+   <linearGradient gradientUnits="userSpaceOnUse" id="cursor-fill-0" x1="636" x2="636" y1="120" y2="200">
+     <stop offset=".16" stop-color="#000" stop-opacity=".39"></stop>
+     <stop offset=".658" stop-color="#000" stop-opacity=".8"></stop>
+   </linearGradient>
+   <linearGradient gradientUnits="userSpaceOnUse" id="cursor-fill-1" x1="670" x2="636" y1="140.37" y2="202.5">
+     <stop offset=".182" stop-color="#000" stop-opacity=".31"></stop>
+     <stop offset=".715" stop-color="#000" stop-opacity="0"></stop>
+   </linearGradient>
+   <linearGradient gradientUnits="userSpaceOnUse" id="cursor-fill-2" x1="636" x2="602" y1="120" y2="240">
+     <stop stop-color="#000" stop-opacity=".6"></stop>
+     <stop offset=".667" stop-color="#000" stop-opacity=".22"></stop>
+   </linearGradient>
+ </defs>
 <metadata
    id="metadata77"> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
 <g
@@ -56,6 +70,14 @@
        d="m 847.92611,-1814.7675 c -253.246,-83.5788 -401.3883,-405.7562 -301.9823,-658.5154 76.0042,-189.6225 290.2815,-316.0021 453.9908,-269.1554 109.07179,30.5567 301.98239,171.3097 372.18709,269.1554 107.1386,150.8677 99.3042,316.0022 -17.5003,495.4037 -109.2753,165.1345 -304.119,228.3776 -506.69529,163.1117 z"
        id="path101"
        style="fill:#2abfd8;fill-opacity:1;stroke:#2abfd8;stroke-width:1.04081;stroke-opacity:1" /></g></g>
+<!-- Cursor logo -->
+<g id="cursor-logo" transform="translate(800, 190) scale(2)">
+  <path d="M11.925 24l10.425-6-10.425-6L1.5 18l10.425 6z" fill="url(#cursor-fill-0)"></path>
+  <path d="M22.35 18V6L11.925 0v12l10.425 6z" fill="url(#cursor-fill-1)"></path>
+  <path d="M11.925 0L1.5 6v12l10.425-6V0z" fill="url(#cursor-fill-2)"></path>
+  <path d="M22.35 6L11.925 24V12L22.35 6z" fill="#555"></path>
+  <path d="M22.35 6l-10.425 6L1.5 6h20.85z" fill="#000"></path>
+</g>
 <g
    aria-label="cookiecutter"
    id="text3586"

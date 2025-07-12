@@ -37,6 +37,10 @@
     "y",
     "n"
   ],
+  "typer_cli": [
+    "y",
+    "n"
+  ],
   "open_source_license": [
     "MIT license",
     "BSD license",

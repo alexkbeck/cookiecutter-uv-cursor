@@ -6,6 +6,9 @@ authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" 
 readme = "README.md"
 keywords = ['python']
 requires-python = ">=3.9,<4.0"
+dependencies = [
+    {% if cookiecutter.typer_cli == 'y' %}"typer>=0.16.0",{% endif %}
+]
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -22,6 +25,11 @@ classifiers = [
 Homepage = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/"
 Repository = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
 Documentation = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/"
+
+{% if cookiecutter.typer_cli == 'y' -%}
+[project.scripts]
+{{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:app"
+{%- endif %}
 
 [dependency-groups]
 dev = [
