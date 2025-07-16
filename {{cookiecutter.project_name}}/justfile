@@ -1,0 +1,71 @@
+{% if cookiecutter.build_tool == 'just' -%}
+# Default recipe to display help
+default:
+    @just --list
+
+# Install the project in development mode
+install:
+    uv sync --dev
+
+# Run quality checks
+check:
+    uv run ruff check .
+    uv run mypy .
+    {% if cookiecutter.deptry == 'y' -%}
+    uv run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}
+    {%- endif %}
+
+# Run tests
+test:
+    uv run pytest
+
+# Run tests with coverage
+test-cov:
+    uv run pytest --cov --cov-report=html --cov-report=term-missing
+
+# Run security checks
+security:
+    uv run bandit -r {% if cookiecutter.layout == "src" %}src{% else %}{{cookiecutter.project_slug}}{% endif %}
+    uv run safety check
+
+# Run benchmarks
+benchmark:
+    uv run pytest --benchmark-only
+
+# Format code
+format:
+    uv run ruff format .
+    uv run ruff check --fix .
+
+# Clean build artifacts
+clean:
+    rm -rf build/
+    rm -rf dist/
+    rm -rf *.egg-info/
+    rm -rf .pytest_cache/
+    rm -rf .coverage
+    rm -rf htmlcov/
+
+# Build package
+build:
+    uv build
+
+{% if cookiecutter.publish_to_pypi == 'y' -%}
+# Publish to PyPI
+publish:
+    uv publish
+
+# Build and publish
+build-and-publish: build publish
+{%- endif %}
+
+{% if cookiecutter.mkdocs == 'y' -%}
+# Serve documentation locally
+docs:
+    uv run mkdocs serve
+
+# Test documentation build
+docs-test:
+    uv run mkdocs build --strict
+{%- endif %}
+{%- endif %} 

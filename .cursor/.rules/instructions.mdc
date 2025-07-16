@@ -7,3 +7,4 @@ This project is a python cookiecutter template.
 
 Study the README.md here: ./README.md
 Study the docs here: ./docs/
+Run `tree -F` in the termincal to see the project structure.

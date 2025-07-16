@@ -39,4 +39,4 @@ The template includes tests for the CLI using Typer's testing utilities. Run the
 make test
 ```
 
-The CLI commands are automatically tested in the CI/CD pipeline when `include_github_actions` is enabled. 
+The CLI commands are automatically tested in the CI/CD pipeline when `include_github_actions` is enabled.

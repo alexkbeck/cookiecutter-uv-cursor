@@ -6,9 +6,12 @@ alwaysApply: true
 
 # {{cookiecutter.project_name}} Development Guide
 
-## 
+##
 
 - Read the project readme: @README.md
+{% if cookiecutter.agent_support == 'cursor' -%}
+- See @.cursor/rules/testing.mdc for detailed testing guidelines
+{%- endif %}
 
 
 ## Quick Start
@@ -27,7 +30,11 @@ make test
 ## Essential Files
 
 - `@pyproject.toml` - Project configuration, dependencies, and tool settings
+{% if cookiecutter.build_tool == "make" -%}
 - `@Makefile` - Common development commands
+{%- else -%}
+- `@justfile` - Common development commands (using Just task runner)
+{%- endif %}
 - `@README.md` - Project documentation and setup instructions
 {% if cookiecutter.layout == "src" -%}
 - `src/{{cookiecutter.project_slug}}/` - Main package source code
@@ -41,7 +48,11 @@ make test
 ### Environment Management
 - **UV**: Dependency management and virtual environment. Add packages with: `uv add <package-name>`
 - **Pre-commit**: Automatic code quality checks on commit: `./.pre-commit-config.yaml`
+{% if cookiecutter.build_tool == "make" -%}
 - **Make**: Common development commands (run `make help` for all options)
+{%- else -%}
+- **Just**: Modern task runner for development commands (run `just` for all options)
+{%- endif %}
 - **Environment Management:** Read the project file: @pyproject.toml
 
 ### Code Quality
@@ -62,7 +73,11 @@ make test
 ### Key Commands
 ```bash
 # Quality checks
+{% if cookiecutter.build_tool == "make" -%}
 make check              # Run all quality checks
+{%- else -%}
+just check              # Run all quality checks
+{%- endif %}
 uv run pre-commit run -a  # Run pre-commit hooks manually
 uv run mypy            # Type checking
 {%- if cookiecutter.deptry == 'y' %}
@@ -70,20 +85,36 @@ uv run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}    
 {%- endif %}
 
 # Testing
+{% if cookiecutter.build_tool == "make" -%}
 make test              # Run tests
+{%- else -%}
+just test              # Run tests
+{%- endif %}
 uv run pytest -v      # Verbose test output
 uv run tox            # Test across Python versions
 
 # Building
+{% if cookiecutter.build_tool == "make" -%}
 make build            # Build wheel package
 {%- if cookiecutter.publish_to_pypi == 'y' %}
 make publish          # Publish to PyPI
 {%- endif %}
+{%- else -%}
+just build            # Build wheel package
+{%- if cookiecutter.publish_to_pypi == 'y' %}
+just publish          # Publish to PyPI
+{%- endif %}
+{%- endif %}
 {%- if cookiecutter.mkdocs == 'y' %}
 
 # Documentation
+{% if cookiecutter.build_tool == "make" -%}
 make docs             # Serve documentation locally
 make docs-test        # Test documentation build
+{%- else -%}
+just docs             # Serve documentation locally
+just docs-test        # Test documentation build
+{%- endif %}
 {%- endif %}
 ```
 
@@ -134,7 +165,7 @@ Dockerfile             # Docker configuration
 # Add runtime dependency
 uv add package-name
 
-# Add development dependency  
+# Add development dependency
 uv add --group dev package-name
 
 # Sync environment after changes

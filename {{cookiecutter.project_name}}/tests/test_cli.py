@@ -16,4 +16,4 @@ def test_hello_with_name():
     result = runner.invoke(app, ["hello", "--name", "Alice"])
     assert result.exit_code == 0
     assert "Hello Alice!" in result.stdout
-{%- endif %} 
+{%- endif %}

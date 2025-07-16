@@ -11,6 +11,38 @@
 - **Github repository**: <https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}/>
 - **Documentation** <https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/>
 
+## Features
+
+This project includes the following modern Python development features:
+
+{% if cookiecutter.logging == 'y' -%}
+- **🚀 Enhanced Logging**: Modern logging with [Loguru](https://loguru.readthedocs.io/) for better debugging and monitoring
+{%- endif %}
+{% if cookiecutter.rich_output == 'y' -%}
+- **🎨 Rich Terminal Output**: Beautiful console output with colors and formatting using [Rich](https://rich.readthedocs.io/)
+{%- endif %}
+{% if cookiecutter.pydantic_models == 'y' -%}
+- **📋 Pydantic Models**: Type-safe data structures with validation using [Pydantic](https://docs.pydantic.dev/)
+{%- endif %}
+{% if cookiecutter.pydantic_settings == 'y' -%}
+- **⚙️ Configuration Management**: Environment-based configuration with [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
+{%- endif %}
+{% if cookiecutter.async_support == 'y' -%}
+- **⚡ Async Support**: Modern async/await patterns with proper testing support
+{%- endif %}
+{% if cookiecutter.mocks == 'y' -%}
+- **🧪 Advanced Testing**: Comprehensive testing with mocking support using [pytest-mock](https://pytest-mock.readthedocs.io/)
+{%- endif %}
+{% if cookiecutter.typer_cli == 'y' -%}
+- **📟 CLI Interface**: Command-line interface built with [Typer](https://typer.tiangolo.com/)
+{%- endif %}
+{% if cookiecutter.build_tool == 'just' -%}
+- **🔧 Modern Task Runner**: Intuitive command syntax with [Just](https://just.systems/) instead of Make
+{%- endif %}
+{% if cookiecutter.agent_support != 'none' -%}
+- **🤖 AI Coding Support**: {% if cookiecutter.agent_support == 'cursor' %}Enhanced development with Cursor IDE integration{% elif cookiecutter.agent_support == 'claude-code' %}AI assistance with Claude Code CLI integration{% else %}Full AI support for both Cursor IDE and Claude Code CLI{% endif %}
+{%- endif %}
+
 ## Getting started with your project
 
 ### 1. Create a New Repository
@@ -30,7 +62,11 @@ git push -u origin main
 Then, install the environment and the pre-commit hooks with
 
 ```bash
+{% if cookiecutter.build_tool == "make" -%}
 make install
+{%- else -%}
+just install
+{%- endif %}
 ```
 
 This will also generate your `uv.lock` file
@@ -79,6 +115,264 @@ For more information about available commands, run:
 {{cookiecutter.project_slug}} --help
 ```
 {%- endif %}
+
+## Development
+
+### Available Commands
+
+{% if cookiecutter.build_tool == "make" -%}
+This project uses Make for task automation. Common commands:
+{%- else -%}
+This project uses [Just](https://just.systems/) for task automation. Common commands:
+{%- endif %}
+
+```bash
+# Install dependencies and setup environment
+{% if cookiecutter.build_tool == "make" -%}
+make install
+{%- else -%}
+just install
+{%- endif %}
+
+# Run all quality checks (linting, type checking, etc.)
+{% if cookiecutter.build_tool == "make" -%}
+make check
+{%- else -%}
+just check
+{%- endif %}
+
+# Run tests
+{% if cookiecutter.build_tool == "make" -%}
+make test
+{%- else -%}
+just test
+{%- endif %}
+
+# Run tests with coverage
+{% if cookiecutter.build_tool == "make" -%}
+make test-cov
+{%- else -%}
+just test-cov
+{%- endif %}
+
+# Format code
+{% if cookiecutter.build_tool == "make" -%}
+make format
+{%- else -%}
+just format
+{%- endif %}
+
+# Build package
+{% if cookiecutter.build_tool == "make" -%}
+make build
+{%- else -%}
+just build
+{%- endif %}
+```
+
+{% if cookiecutter.build_tool == "just" -%}
+To see all available commands, run:
+
+```bash
+just
+```
+{%- else -%}
+To see all available commands, run:
+
+```bash
+make help
+```
+{%- endif %}
+
+{% if cookiecutter.pydantic_settings == 'y' -%}
+### Configuration
+
+This project uses Pydantic Settings for configuration management. You can configure the application using:
+
+1. **Environment variables** (recommended for production):
+   ```bash
+   export APP_NAME="My Application"
+   export DEBUG=true
+   export LOG_LEVEL=DEBUG
+   ```
+
+2. **`.env` file** (recommended for development):
+   ```bash
+   # Create a .env file in the project root
+   APP_NAME=My Application
+   DEBUG=true
+   LOG_LEVEL=DEBUG
+   ```
+
+3. **Programmatically** in your code:
+   ```python
+   {% if cookiecutter.layout == "src" -%}
+   from src.{{cookiecutter.project_slug}}.config import settings
+   {%- else -%}
+   from {{cookiecutter.project_slug}}.config import settings
+   {%- endif %}
+   
+   print(settings.app_name)
+   print(settings.debug)
+   ```
+
+All configuration options are type-safe and validated automatically.
+{%- endif %}
+
+{% if cookiecutter.logging == 'y' -%}
+### Logging
+
+This project uses [Loguru](https://loguru.readthedocs.io/) for enhanced logging:
+
+```python
+{% if cookiecutter.layout == "src" -%}
+from src.{{cookiecutter.project_slug}}.foo import foo
+{%- else -%}
+from {{cookiecutter.project_slug}}.foo import foo
+{%- endif %}
+
+# Logging is automatically configured and used within functions
+result = foo("example")  # This will log processing information
+```
+
+Loguru provides structured logging with automatic JSON serialization, filtering, and formatting.
+{%- endif %}
+
+{% if cookiecutter.async_support == 'y' -%}
+### Async Support
+
+This project includes support for asynchronous programming:
+
+```python
+import asyncio
+{% if cookiecutter.layout == "src" -%}
+from src.{{cookiecutter.project_slug}}.foo import async_foo
+{%- else -%}
+from {{cookiecutter.project_slug}}.foo import async_foo
+{%- endif %}
+
+# Use async functions
+async def main():
+    result = await async_foo("example")
+    print(result)
+
+# Run async code
+asyncio.run(main())
+```
+
+The project includes `pytest-asyncio` for testing async code.
+{%- endif %}
+
+{% if cookiecutter.pydantic_models == 'y' -%}
+### Data Models
+
+This project uses [Pydantic](https://docs.pydantic.dev/) for type-safe data validation:
+
+```python
+{% if cookiecutter.layout == "src" -%}
+from src.{{cookiecutter.project_slug}}.models import FooModel
+{%- else -%}
+from {{cookiecutter.project_slug}}.models import FooModel
+{%- endif %}
+
+# Create and validate data
+model = FooModel(bar="example")
+print(model.bar)  # Automatically validated
+print(str(model))  # Clean string representation
+```
+
+All models include automatic validation, serialization, and clear error messages.
+{%- endif %}
+
+{% if cookiecutter.mocks == 'y' -%}
+### Testing with Mocks
+
+This project includes [pytest-mock](https://pytest-mock.readthedocs.io/) for advanced testing:
+
+```python
+def test_with_mocking(mocker):
+    # Mock external dependencies
+    mock_function = mocker.patch("module.function")
+    mock_function.return_value = "mocked_result"
+    
+    # Your test code here
+    # Verify mock was called
+    mock_function.assert_called_once()
+```
+
+See the test files for comprehensive mocking examples.
+{%- endif %}
+
+{% if cookiecutter.agent_support != 'none' -%}
+### AI Coding Assistant
+
+{% if cookiecutter.agent_support == 'cursor' -%}
+This project is configured for enhanced development with **Cursor IDE**:
+
+- Comprehensive coding rules in `.cursor/rules/`
+- Context-aware suggestions for this project's patterns
+- Testing guidelines and best practices
+{%- elif cookiecutter.agent_support == 'claude-code' -%}
+This project is configured for AI assistance with **Claude Code CLI**:
+
+- Detailed project instructions in `CLAUDE.md`
+- Development workflow guidance
+- Code quality standards and patterns
+{%- else -%}
+This project is configured for AI assistance with both **Cursor IDE** and **Claude Code CLI**:
+
+- Cursor IDE support with comprehensive rules in `.cursor/rules/`
+- Claude Code CLI integration with detailed instructions in `CLAUDE.md`
+- Context-aware suggestions and development guidance
+{%- endif %}
+
+The AI assistant understands this project's architecture, dependencies, and coding patterns.
+{%- endif %}
+
+### Project Structure
+
+```
+{% if cookiecutter.layout == "src" -%}
+src/{{cookiecutter.project_slug}}/    # Main package source code
+{%- else -%}
+{{cookiecutter.project_slug}}/        # Main package source code
+{%- endif %}
+├── {% if cookiecutter.typer_cli == 'y' %}cli.py               # Command-line interface{% endif %}
+├── foo.py              # Example module{% if cookiecutter.logging == 'y' %} with logging{% endif %}{% if cookiecutter.rich_output == 'y' %} and rich output{% endif %}{% if cookiecutter.async_support == 'y' %} and async support{% endif %}
+{% if cookiecutter.pydantic_models == 'y' -%}
+├── models.py           # Pydantic data models
+{%- endif %}
+{% if cookiecutter.pydantic_settings == 'y' -%}
+├── config.py           # Configuration management
+{%- endif %}
+└── __init__.py         # Package initialization
+
+tests/                  # Test files
+├── test_foo.py         # Tests for foo module{% if cookiecutter.mocks == 'y' %} with mocking examples{% endif %}
+{% if cookiecutter.pydantic_models == 'y' -%}
+├── test_models.py      # Tests for Pydantic models
+{%- endif %}
+{% if cookiecutter.pydantic_settings == 'y' -%}
+├── test_config.py      # Tests for configuration
+{%- endif %}
+
+{% if cookiecutter.agent_support == 'cursor' or cookiecutter.agent_support == 'both' -%}
+.cursor/rules/          # Cursor IDE configuration
+├── instructions.mdc    # Development guidelines
+└── testing.mdc         # Testing guidelines
+{%- endif %}
+
+{% if cookiecutter.agent_support == 'claude-code' or cookiecutter.agent_support == 'both' -%}
+CLAUDE.md               # Claude Code CLI instructions
+{%- endif %}
+{% if cookiecutter.build_tool == 'just' -%}
+justfile                # Task automation commands
+{%- else -%}
+Makefile                # Task automation commands
+{%- endif %}
+pyproject.toml          # Project configuration and dependencies
+README.md               # This file
+```
 
 ## Releasing a new version
 

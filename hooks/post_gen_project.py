@@ -87,6 +87,30 @@ if __name__ == "__main__":
         remove_file("LICENSE_ISC")
         remove_file("LICENSE_APACHE")
 
+    if "{{cookiecutter.agent_support}}" == "none":
+        remove_dir(".cursor")
+        remove_file("CLAUDE.md")
+    elif "{{cookiecutter.agent_support}}" == "cursor":
+        remove_file("CLAUDE.md")
+    elif "{{cookiecutter.agent_support}}" == "claude-code":
+        remove_dir(".cursor")
+    elif "{{cookiecutter.agent_support}}" == "both":
+        # Keep both .cursor directory and CLAUDE.md file
+        pass
+
+    if "{{cookiecutter.pydantic_models}}" != "y":
+        remove_file("{{cookiecutter.project_slug}}/models.py")
+        remove_file("tests/test_models.py")
+
+    if "{{cookiecutter.build_tool}}" == "make":
+        remove_file("justfile")
+    elif "{{cookiecutter.build_tool}}" == "just":
+        remove_file("Makefile")
+
+    if "{{cookiecutter.pydantic_settings}}" != "y":
+        remove_file("{{cookiecutter.project_slug}}/config.py")
+        remove_file("tests/test_config.py")
+
     if "{{cookiecutter.layout}}" == "src":
         if os.path.isdir("src"):
             remove_dir("src")

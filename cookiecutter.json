@@ -41,6 +41,40 @@
     "y",
     "n"
   ],
+  "agent_support": [
+    "none",
+    "cursor",
+    "claude-code",
+    "both"
+  ],
+  "logging": [
+    "y",
+    "n"
+  ],
+  "rich_output": [
+    "y",
+    "n"
+  ],
+  "pydantic_models": [
+    "y",
+    "n"
+  ],
+  "async_support": [
+    "y",
+    "n"
+  ],
+  "build_tool": [
+    "make",
+    "just"
+  ],
+  "pydantic_settings": [
+    "y",
+    "n"
+  ],
+  "mocks": [
+    "y",
+    "n"
+  ],
   "open_source_license": [
     "MIT license",
     "BSD license",

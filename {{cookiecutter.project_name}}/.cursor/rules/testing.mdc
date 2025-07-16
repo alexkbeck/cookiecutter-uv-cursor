@@ -1,0 +1,107 @@
+---
+description: Testing guidelines for {{cookiecutter.project_name}}
+globs:
+  - "test_*.py"
+  - "*_test.py"  
+  - "tests/**/*.py"
+  - "conftest.py"
+---
+
+# Testing Guidelines
+
+These rules apply when working with tests in this project.
+
+## Test Structure
+- Use pytest fixtures for setup/teardown
+- One test file per module (test_module.py)
+- Group related tests in classes when they share setup
+- Use descriptive test names that explain what is being tested
+
+## Test Patterns
+- **Arrange-Act-Assert** pattern for test organization
+- Use parameterized tests for multiple scenarios
+- Keep tests independent and isolated
+- Mock external dependencies appropriately
+
+## Naming Conventions
+- Test files: `test_<module>.py` or `<module>_test.py`
+- Test functions: `test_<function_name>_<scenario>()`
+- Test classes: `Test<ClassName>`
+- Fixtures: Use descriptive names without `test_` prefix
+
+## Coverage Goals
+- Aim for >80% code coverage on new code
+- Focus on testing business logic and edge cases
+- Test both happy path and error conditions
+- Don't test implementation details, test behavior
+
+## Mocking Guidelines
+{% if cookiecutter.mocks == 'y' -%}
+- Use pytest-mock for mocking external dependencies
+- Mock at the boundary of your system
+- Prefer dependency injection for easier testing
+- Use `mocker.patch()` for patching methods and functions
+{%- else -%}
+- Use unittest.mock for mocking external dependencies
+- Mock at the boundary of your system
+- Prefer dependency injection for easier testing
+{%- endif %}
+
+## Logging in Tests
+{% if cookiecutter.logging == 'y' -%}
+- Use loguru's testing utilities for log assertion
+- Capture logs with `caplog` fixture or loguru's context manager
+- Test log levels and messages appropriately
+- Mock loguru logger when needed for external dependencies
+{%- endif %}
+
+## Fixture Organization
+- Place common fixtures in `conftest.py`
+- Use appropriate fixture scopes (function, class, module, session)
+- Keep fixtures focused and single-purpose
+- Use `@pytest.fixture` decorator with descriptive names
+
+## Test Data
+- Keep test data minimal and focused
+- Use factories or builders for complex test data
+- Avoid hard-coding values that could change
+- Use meaningful test data that reflects real usage
+
+## Async Testing
+{% if cookiecutter.async_support == 'y' -%}
+- Use `pytest-asyncio` for async test support
+- Mark async tests with `@pytest.mark.asyncio`
+- Use `await` for async function calls in tests
+- Mock async dependencies appropriately
+{%- endif %}
+
+## Performance Testing
+- Use pytest-benchmark for performance-critical code
+- Focus on measuring what matters to users
+- Set reasonable thresholds for performance tests
+- Keep performance tests separate from unit tests
+
+## Rich Output Testing
+{% if cookiecutter.rich_output == 'y' -%}
+- Mock Rich console output for testing
+- Use `capsys` fixture to capture console output
+- Test console formatting and colors when relevant
+- Mock Rich components for unit tests
+{%- endif %}
+
+## Pydantic Model Testing
+{% if cookiecutter.pydantic_models == 'y' -%}
+- Test model validation with both valid and invalid data
+- Use `pytest.raises(ValidationError)` for validation errors
+- Test model serialization and deserialization
+- Test custom validators and field constraints
+- Use model factories for creating test instances
+{%- endif %}
+
+## Configuration Testing
+{% if cookiecutter.pydantic_settings == 'y' -%}
+- Test configuration loading from environment variables
+- Use `monkeypatch` fixture to set environment variables
+- Test configuration validation and defaults
+- Mock configuration dependencies in tests
+{%- endif %}

@@ -22,4 +22,4 @@ app.command()(hello)
 
 if __name__ == "__main__":  # pragma: no cover
     app()
-{%- endif %} 
+{%- endif %}
