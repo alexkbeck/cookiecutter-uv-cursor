@@ -21,7 +21,7 @@ This is a modern Cookiecutter template that can be used to initiate a Python pro
 **Optional Features:**
 - CI/CD with [GitHub Actions](https://github.com/features/actions)
 - Publishing to [PyPI](https://pypi.org) by creating a new release on GitHub
-- Dependency usage analysis with [deptry](https://github.com/fpgmaas/deptry)
+- Dependency usage analysis with [deptry](https://github.com/alexkbeck/deptry)
 - Documentation with [MkDocs](https://www.mkdocs.org/)
 - Test coverage reporting with [codecov](https://about.codecov.io/)
 - Containerization with [Docker](https://www.docker.com/) or [Podman](https://podman.io/)
@@ -39,7 +39,7 @@ This is a modern Cookiecutter template that can be used to initiate a Python pro
 ---
 
 <p align="center">
-  <a href="https://fpgmaas.github.io/cookiecutter-uv-cursor/">Documentation</a> - <a href="https://github.com/fpgmaas/cookiecutter-uv-cursor-example">Example</a>
+  <a href="https://alexkbeck.github.io/cookiecutter-uv-cursor/">Documentation</a> - <a href="https://github.com/alexkbeck/cookiecutter-uv-cursor-example">Example</a>
 </p>
 
 ---
@@ -50,14 +50,14 @@ On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
-uvx cookiecutter https://github.com/fpgmaas/cookiecutter-uv-cursor.git
+uvx cookiecutter https://github.com/alexkbeck/cookiecutter-uv-cursor.git
 ```
 
 or if you don't have `uv` installed yet:
 
 ```bash
 pip install cookiecutter
-cookiecutter https://github.com/fpgmaas/cookiecutter-uv-cursor.git
+cookiecutter https://github.com/alexkbeck/cookiecutter-uv-cursor.git
 ```
 
 Follow the prompts to configure your project. Once completed, a new directory containing your project will be created. Then navigate into your newly created project directory and follow the instructions in the `README.md` to complete the setup of your project.

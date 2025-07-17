@@ -92,9 +92,9 @@ git push origin main
 You are now ready to start development on your project!
 The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
 
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
+To finalize the set-up for publishing to PyPI, see [here](https://alexkbeck.github.io/cookiecutter-uv-cursor/features/publishing/#set-up-for-pypi).
+For activating the automatic documentation with MkDocs, see [here](https://alexkbeck.github.io/cookiecutter-uv-cursor/features/mkdocs/#enabling-the-documentation-on-github).
+To enable the code coverage reports, see [here](https://alexkbeck.github.io/cookiecutter-uv-cursor/features/codecov/).
 
 {% if cookiecutter.typer_cli == 'y' -%}
 ## CLI Usage
@@ -383,9 +383,9 @@ README.md               # This file
 - Create a [new release](https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}/releases/new) on Github.
 - Create a new tag in the form `*.*.*`.
 
-For more details, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/cicd/#how-to-trigger-a-release).
+For more details, see [here](https://alexkbeck.github.io/cookiecutter-uv-cursor/features/cicd/#how-to-trigger-a-release).
 {%- endif %}
 
 ---
 
-Repository initiated with [fpgmaas/cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv).
+Repository initiated with [alexkbeck/cookiecutter-uv-cursor](https://github.com/alexkbeck/cookiecutter-uv-cursor).

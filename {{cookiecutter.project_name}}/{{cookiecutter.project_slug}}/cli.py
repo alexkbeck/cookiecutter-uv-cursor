@@ -3,9 +3,7 @@ import typer
 
 
 def hello(name: str = "World") -> str:
-    """Simple hello command.
-
-    Extended description of command.
+    """Extended description of command.
 
     Args:
         name: Name to greet.
@@ -20,6 +18,6 @@ app = typer.Typer()
 app.command()(hello)
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     app()
 {%- endif %}

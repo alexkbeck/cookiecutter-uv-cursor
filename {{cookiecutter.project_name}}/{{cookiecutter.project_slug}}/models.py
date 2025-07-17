@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 
 class FooModel(BaseModel):
-    """Description of Pydantic model."""
-    
+    """Description of Pydantic model.
+    """
     bar: str
     
     def __str__(self) -> str:

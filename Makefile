@@ -11,15 +11,15 @@ bake-with-inputs: ## bake with inputs and overwrite if exists.
 	@uv run cookiecutter . --overwrite-if-exists
 
 .PHONY: bake-and-test-deploy
-bake-and-test-deploy: ## For quick publishing to cookiecutter-uv-example to test GH Actions
-	@rm -rf cookiecutter-uv-example || true
+bake-and-test-deploy: ## For quick publishing to cookiecutter-uv-cursor-example to test GH Actions
+	@rm -rf cookiecutter-uv-cursor-example || true
 	@uv run cookiecutter --no-input . --overwrite-if-exists \
-		author="Florian Maas" \
-		email="fpgmaas@gmail.com" \
-		github_author_handle=fpgmaas \
-		project_name=cookiecutter-uv-example \
+		author="Alex Beck" \
+		email="alexkbeck@gmail.com" \
+		github_author_handle=alexkbeck \
+		project_name=cookiecutter-uv-cursor-example \
 		project_slug=cookiecutter_uv_example
-	@cd cookiecutter-uv-example; uv sync && \
+	@cd cookiecutter-uv-cursor-example; uv sync && \
 		git init -b main && \
 		git add . && \
 		uv run pre-commit install && \
@@ -28,7 +28,7 @@ bake-and-test-deploy: ## For quick publishing to cookiecutter-uv-example to test
 		uv run pre-commit run -a || true && \
 		git add . && \
 		git commit -m "init commit" && \
-		git remote add origin git@github.com:fpgmaas/cookiecutter-uv-example.git && \
+		git remote add origin git@github.com:alexkbeck/cookiecutter-uv-cursor-example.git && \
 		git push -f origin main
 
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This proposal outlines targeted enhancements to the cookiecutter-uv template to better support AI-assisted development and modern Python practices in 2025, while maintaining the template's foundational, non-opinionated approach.
+This proposal outlines targeted enhancements to the cookiecutter-uv-cursor template to better support AI-assisted development and modern Python practices in 2025, while maintaining the template's foundational, non-opinionated approach.
 
 ## Proposed New Cookiecutter Options
 
