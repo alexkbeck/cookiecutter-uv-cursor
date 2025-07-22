@@ -111,6 +111,9 @@ if __name__ == "__main__":
         remove_file("{{cookiecutter.project_slug}}/config.py")
         remove_file("tests/test_config.py")
 
+    if "{{cookiecutter.fastmcp_server}}" != "y":
+        remove_file("{{cookiecutter.project_slug}}/server.py")
+
     if "{{cookiecutter.layout}}" == "src":
         if os.path.isdir("src"):
             remove_dir("src")
